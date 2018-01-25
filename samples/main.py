@@ -10,6 +10,7 @@ from templates.requirement import _init_requirement_code
 from templates.setup import _init_setup_code
 from templates.git import _init_git_code
 from templates.project import _init_main_code
+from templates.bin import _init_bin_code
 
 #operators
 from operators import _mkdir_p, init_code
@@ -54,7 +55,10 @@ def get_pro_name(name, author):
     _mkdir_p(lib_path)
 
     os.chdir(project_path)
-    init_code("main.py", _init_main_code)   
+    init_code("main.py", _init_main_code)
+
+    os.chdir(bin_path)
+    init_code("run.sh", _init_bin_code)  
 
 
     

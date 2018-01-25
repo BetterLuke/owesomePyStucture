@@ -8,7 +8,7 @@ _init_main_code = (
     "\tprint 'hello coder!'"
     "\n"
     "\n"
-    "if __name__ == '__main__:"
+    "if __name__ == '__main__':"
     "\n"
     "\tmain()"
 )
