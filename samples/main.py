@@ -13,7 +13,7 @@ from templates.project import _init_main_code
 from templates.bin import _init_bin_code
 
 #operators
-from operators import _mkdir_p, init_code
+from operators import _mkdir_p, init_code, _mk_git
 
 #logging
 import logging
@@ -26,7 +26,8 @@ logger.addHandler(StreamHandler())
 @click.command()
 @click.option('--name',prompt="Project name",help='Your awesome python project name')
 @click.option('--author',prompt="author", help="Author name")
-def get_pro_name(name, author):
+@click.option('--git',prompt="Init git now?", is_flag=True)
+def init_project_structure(name, author, git):
     """
         Hey, dude, let me help u make a awesome structure for python project
     """
@@ -58,8 +59,13 @@ def get_pro_name(name, author):
     init_code("main.py", _init_main_code)
 
     os.chdir(bin_path)
-    init_code("run.sh", _init_bin_code)  
+    init_code("run.sh", _init_bin_code)
 
+    #init git repository, if need
+    if git:
+        _mk_git(dst_path)
+    
+    click.secho("Done！", fg='green')
 
     
 # logging info
@@ -81,12 +87,11 @@ def start_init_info(path):
         exit(1)
     else:
         logger.info('''\033[33m{Info}\033[0m
-    ==> start init your 
-     project [on]
+    ==> start init your project [on]
     ==> \033[32m%s\033[0m\n''' % path)
 
 def main():
-    get_pro_name()
+    init_project_structure()
 
 
 if __name__ == "__main__":
