@@ -1,5 +1,5 @@
-#!/bin/python
 #encoding: utf-8
+#author: Luke_bei
 
 import click
 import os
@@ -9,6 +9,7 @@ from templates.init import _init_basic_code, _init_readme_code
 from templates.requirement import _init_requirement_code
 from templates.setup import _init_setup_code
 from templates.git import _init_git_code
+from templates.project import _init_main_code
 
 #operators
 from operators import _mkdir_p, init_code
@@ -39,16 +40,22 @@ def get_pro_name(name, author):
     init_code("README.md", _init_readme_code)
     init_code("requirements.txt", _init_requirement_code)
     init_code(".gitignore", _init_git_code)
+    init_code('setup.py', _init_setup_code)    
     #mkdir
     docs_path = os.path.join(dst_path, 'docs')
-    samples_path = os.path.join(dst_path, 'samples')
-    tests_path = os.path.join(dst_path, 'tests')
+    bin_path = os.path.join(dst_path, "bin")
+    project_path = os.path.join(dst_path, 'project')
+    tests_path = os.path.join(project_path, 'tests')
+    lib_path = os.path.join(project_path, 'lib')
     _mkdir_p(docs_path)
-    _mkdir_p(samples_path)
-    _mkdir_p(tests_path)    
+    _mkdir_p(bin_path)
+    _mkdir_p(project_path)
+    _mkdir_p(tests_path)
+    _mkdir_p(lib_path)
 
-    #create setup.py
-    init_code('setup.py', _init_setup_code)
+    os.chdir(project_path)
+    init_code("main.py", _init_main_code)   
+
 
     
 # logging info
