@@ -1,2 +1,3 @@
 #!/bin/bash
-python ../samples/main.py
+
+python ./samples/main.py
