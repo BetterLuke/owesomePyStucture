@@ -5,5 +5,7 @@ import os
 
 def _mk_git(path):
     os.chdir(path)
-    ret = commands.getstatusoutput('git init .')
-    print ret[-1]
+    try:
+        ret = commands.getstatusoutput('git init .')
+    except Exception as e:
+        print "Cannot find git command in your environment."
